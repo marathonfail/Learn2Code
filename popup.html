@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" ng-app>
+  <head>
+    <title>Code-Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <style>
+      body {
+        padding-top: 60px;
+      }
+        #editor {
+                position: relative;
+				width: 400px;
+				height: 300px;
+            }
+
+    </style>
+  </head>
+  <body style="overflow: auto;">
+	<div class="container" ng-app="codeCheckerApp" ng-controller="codeCheckController" >
+		<div class="span1">
+			<form ng-submit="compileAndTest()">
+				<select ng-model="language" ng-options="lang for lang in available_languages_str" ng-change="setLanguageMode()">
+					<option value="">Select Language</option>
+				</select>
+				<div id="editor" >
+				</div>
+				<!--textarea rows="15" style="width: 400px;" class="input-large" ng-model="source"></textarea-->
+				<input type="submit" class="span12 btn btn-primary" value="Compile & Test" ng-disabled="!source">
+			</form>
+			<div>
+				<span ng-model="errorMessage" style="fontSize: 11px; color: red;">{{errorMessage}}</span>
+			</div>
+			<div>
+				<textarea ng-model="testcase" id="testcase" placeholder="Add your test case here"></textarea>
+				<button ng-click="addTestcase()" class="btn btn-primary">Add Testcase</button>
+				<button ng-click="clearTests()" class="btn btn-primary">Clear All Testcases</button>
+			</div>
+			<div>
+				<!--p ng-repeat="item in items">Created {{ item }}</p-->
+				<table class="table table-striped table-bordered">
+				<thead>
+				  <tr>
+					<th class="span2">Testcase</th>
+					<th class="span7">Output</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="result in results">
+					<td class="span2" ng-bind="result.testcase"></td>
+					<td class="span7" ng-bind-html-unsafe="result.output"></td>
+				  </tr>
+				</tbody>
+				</table>
+			</div>
+		</div>
+    </div>
+	<div class="footer">
+		<span style="color: grey; fontSize: 8px">Powered by <a href="http://hackerrank.com" target="_blank">hackerrank.com</a></span>
+	</div>
+	<script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script src="popup.js"></script>
+  </body>
+</html>
